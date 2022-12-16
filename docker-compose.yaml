@@ -1,0 +1,19 @@
+version: '3' 
+services:
+   tensorrt:
+      container_name: 'torch2tensorrt'
+      image: torch2tensorrt
+      build:
+         context: .
+         dockerfile: Dockerfile
+         args:
+            buildno: 1
+      runtime: nvidia        
+      volumes:
+         - ./:/home                  
+      command: jupyter lab --allow-root --ip=0.0.0.0 --port 8888
+      ports:
+         - '8888:8888'
+      stdin_open: true
+      tty: true
+      restart: unless-stopped
