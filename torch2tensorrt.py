@@ -16,7 +16,7 @@ model = model.eval().to("cuda")
 
 traced_model = torch.jit.trace(model, torch.randn((1,3,224,224)).to("cuda"))
 torch.jit.save(traced_model, "traced_model.jit.pt")
-print('saved torchscript model')
+print('***saved torchscript model***\n')
 
 trt_model = torch_tensorrt.compile(model, 
     inputs= [torch_tensorrt.Input((1, 3, 224, 224))],
@@ -24,4 +24,12 @@ trt_model = torch_tensorrt.compile(model,
 )
 
 torch.jit.save(trt_model, "tensorrt_module.ts")
-print('saved tensorrt model')
+print('***saved tensorrt model***\n')
+
+print('----------------------Starting model validation----------------------\n')
+
+model = torch.jit.load("tensorrt_module.ts")
+print(model(torch.randn(1,3,224,224).float().to('cuda')), '\n')
+
+print('----------------------Model loads and works----------------------\n')
+print('Exiting...')
