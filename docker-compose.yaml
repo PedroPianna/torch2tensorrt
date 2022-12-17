@@ -1,7 +1,8 @@
 version: '3' 
 services:
+
    tensorrt:
-      container_name: 'torch2tensorrt'
+      container_name: 'torch2tensorrt-prototyping'
       image: torch2tensorrt
       build:
          context: .
@@ -17,3 +18,24 @@ services:
       stdin_open: true
       tty: true
       restart: unless-stopped
+      profiles:
+        - prototyping
+
+   tensorrt-deployment:
+      container_name: 'torch2tensorrt-prod'
+      image: torch2tensorrt
+      build:
+         context: .
+         dockerfile: Dockerfile
+         args:
+            buildno: 1
+      runtime: nvidia        
+      volumes:
+         - ./:/home                  
+      command: python3 torch2tensorrt.py
+      ports:
+         - '8888:8888'
+      stdin_open: true
+      tty: true
+      profiles:
+        - prod
