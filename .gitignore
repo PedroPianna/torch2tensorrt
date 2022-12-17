@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 models/
+.Trash-0
 # C extensions
 *.so
 
