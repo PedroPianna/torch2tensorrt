@@ -4,5 +4,5 @@
 
 ### Important: this repository only creates an environment for converting models. Code may need to be modified according to one's specific model
 ### Getting started
-- In order to run a notebook with benchmarks run ``` docker compose --profile prototyping up ``` and run the notebook cells
+- In order to run a notebook with benchmarks run ``` docker compose --profile prototyping up ``` and run the notebook cells. This will start a Jupyter server at [localhost:8888](https://localhost:8888)
 - Run ``` docker compose --profile prod up ``` if you only want to save the models, without benchmarking
